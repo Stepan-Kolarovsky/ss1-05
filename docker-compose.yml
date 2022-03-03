@@ -1,11 +1,14 @@
-version: '3.3'
 
-services:
-    webserver:
-
-        image: nginx:latest
-        ports:
-            - 80:80
-        volumes:
-            - ./www:/usr/share/nginx/html
-            - ./etc/nginx/conf.d/
+web:
+    image: nginx:latest
+    ports:
+        - "80:80"
+    volumes:
+        - ./code:/code
+        - ./site.conf:/etc/nginx/conf.d/site.conf
+    links:
+        - php
+php:
+    volumes:
+        - ./code:/code
+    image: php:8.1-fpm
